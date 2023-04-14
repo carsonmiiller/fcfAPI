@@ -1,4 +1,12 @@
 package com.birdgang.user.Models;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+//import javax.persistence.Entity;
+
 /**
  * This class maps to the User table in the Five Course Feeder database.
  * It is used to carry out the basic CRUD operations on a single instance
@@ -6,10 +14,14 @@ package com.birdgang.user.Models;
  * @author:  Carson Miller
  * @version: 2023.03.28
  */
+@Entity
 public class User {
 
     // Instance variables
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int userID;
+
     private String username;
     private String password;
     private String firstName;
