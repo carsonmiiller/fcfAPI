@@ -1,9 +1,9 @@
 package com.birdgang.user.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 //import javax.persistence.Entity;
 
@@ -20,7 +20,7 @@ public class User {
     // Instance variables
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long userID;
+    private int userID;
 
     private String username;
     private String password;
@@ -94,13 +94,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Long getUserID(){
-        return this.userID;
-    } 
     
-    public void setUserID(Long userID){
-        this.userID = userID;
-    } 
     /**
      * This method executes an INSERT INTO statement on the This table.
      * It creates a new record in the table.
@@ -118,7 +112,7 @@ public class User {
      * It is called by the load() method.
      * @param:  userID - the primary key value of the record to be read
      */
-    private void read(Long userID){
+    private void read(int userID){
         // use JDBC Connection to initialize Statement object
         
         // execute SELECT query on Statement object using primary key variable
@@ -173,7 +167,7 @@ public class User {
      * This method calls read() to "pick up" the record for a particular primary key value.
      * @param:  userID - the primary key value of the record to be read
      */
-    public void load(Long userID){
+    public void load(int userID){
         // call read() to pick up the record corresponding to the userID
         read(this.userID);
     }
