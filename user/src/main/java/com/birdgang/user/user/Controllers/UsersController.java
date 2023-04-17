@@ -1,4 +1,4 @@
-package com.birdgang.user.Controllers;
+package com.birdgang.user.user.Controllers;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.birdgang.user.Models.User;
-import com.birdgang.user.Models.UserRepository;
+import com.birdgang.user.user.Models.User;
+import com.birdgang.user.user.Models.UserRepository;
 
 @RestController
 @RequestMapping("/api/v1/users/")

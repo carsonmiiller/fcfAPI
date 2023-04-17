@@ -1,4 +1,4 @@
-package com.birdgang.user.Models;
+package com.birdgang.user.user.Models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
