@@ -39,6 +39,10 @@ public class UsersController {
         return new User();
     }
 
+    public UserRepository getRepo(){
+        return this.userRepository;
+    }
+
     @GetMapping(path="/all")
     public @ResponseBody Iterable<User> getAllUsers() {
         return userRepository.findAll();

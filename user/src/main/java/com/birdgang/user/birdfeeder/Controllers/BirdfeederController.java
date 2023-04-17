@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.birdgang.user.birdfeeder.Models.Birdfeeder;
 import com.birdgang.user.birdfeeder.Models.BirdfeederRepository;
+import com.birdgang.user.user.Models.User;
+import com.birdgang.user.user.Models.UserRepository;
 
 @RestController
 @RequestMapping("/api/v1/birdfeeder/")
@@ -21,6 +23,8 @@ public class BirdfeederController {
 
     @Autowired
     private BirdfeederRepository birdfeederRepository;
+
+    private UserRepository userRepository;
 
     @GetMapping
     public @ResponseBody List<Birdfeeder> list() {
@@ -43,11 +47,12 @@ public class BirdfeederController {
         return birdfeederRepository.findAll();
     }
 
-    @PostMapping(path="/add/{userID}/{birdfeederSettings}")
-    public @ResponseBody String addNewUser(@PathVariable("userID") String userID, @PathVariable("birdfeederSettings") String birdfeederSettings){
+    @PostMapping(path="/add/{fkUser}/{birdfeederSettings}")
+    public @ResponseBody String addNewUser(@PathVariable("fkUser") Integer fkUser,
+     @PathVariable("birdfeederSettings") String birdfeederSettings){
         Birdfeeder n = new Birdfeeder();
-        //n.setUserID(userID);
-        n.setBirdfeederSettings(birdfeederSettings);;
+        n.setFKUser(userRepository.findById(fkUser));
+        n.setBirdfeederSettings(birdfeederSettings);
         birdfeederRepository.save(n);
         return "Saved Birdfeeder";
     }

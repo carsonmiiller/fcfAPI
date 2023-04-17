@@ -1,4 +1,4 @@
-package com.birdgang.user.user.Models;
+package com.birdgang.user.stats.models;
 
 import com.birdgang.user.birdfeeder.Models.Birdfeeder;
 
@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
 @Entity // This tells Hibernate to make a table out of this class
-public class User {
+public class Stats {
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer userID;
