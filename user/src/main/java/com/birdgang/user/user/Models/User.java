@@ -1,15 +1,20 @@
-package com.birdgang.user.Models;
+package com.birdgang.user.user.Models;
+
+import com.birdgang.user.birdfeeder.Models.Birdfeeder;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class User {
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer userID;
+  //@OneToOne(mappedBy = "user")
+  //private Birdfeeder birdfeeder;
   private String username;
   private String password;
   private String firstName;
