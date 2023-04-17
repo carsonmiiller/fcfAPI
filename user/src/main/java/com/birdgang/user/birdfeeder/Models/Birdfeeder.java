@@ -22,20 +22,20 @@ public class Birdfeeder {
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer birdfeederID;
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "birdfeederUserID", referencedColumnName = "userID")
-  private User fkUser;
+  //@OneToOne(cascade = CascadeType.ALL)
+  //@JoinColumn(name = "birdfeederUserID", referencedColumnName = "userID")
+  //private Optional<User> fkUser;
 
   private String birdfeederSettings;
 
 
-  public User getFKUser(){
-    return fkUser;
-  }
+  //public Optional<User> getFKUser(){
+  //  return fkUser;
+ // }
 
-  public void setFKUser(Optional<User> optional){
-    this.fkUser = optional;
-  }
+  //public void setFKUser(Optional<User> optional){
+  //  this.fkUser = optional;
+  //}
 
   public Integer getBirdfeederID() {
     return birdfeederID;

@@ -48,10 +48,9 @@ public class BirdfeederController {
     }
 
     @PostMapping(path="/add/{fkUser}/{birdfeederSettings}")
-    public @ResponseBody String addNewUser(@PathVariable("fkUser") Integer fkUser,
+    public @ResponseBody String addNewUser(
      @PathVariable("birdfeederSettings") String birdfeederSettings){
         Birdfeeder n = new Birdfeeder();
-        n.setFKUser(userRepository.findById(fkUser));
         n.setBirdfeederSettings(birdfeederSettings);
         birdfeederRepository.save(n);
         return "Saved Birdfeeder";

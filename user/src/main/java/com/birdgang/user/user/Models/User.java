@@ -13,8 +13,8 @@ public class User {
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer userID;
-  @OneToOne(mappedBy = "user")
-  private Birdfeeder birdfeeder;
+  //@OneToOne(mappedBy = "user")
+  //private Birdfeeder birdfeeder;
   private String username;
   private String password;
   private String firstName;
