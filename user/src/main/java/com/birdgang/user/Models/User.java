@@ -9,33 +9,49 @@ import jakarta.persistence.Id;
 public class User {
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
-  private Integer pk;
+  private Integer userID;
+  private String username;
+  private String password;
+  private String firstName;
+  private String lastName;
 
-  private String name;
-
-  private String email;
-
-  public Integer getPk() {
-    return pk;
+  public Integer getUserID() {
+    return userID;
   }
 
-  public void setPk(Integer pk) {
-    this.pk = pk;
+  public void setUserID(Integer userID) {
+    this.userID = userID;
   }
 
-  public String getName() {
-    return name;
+  public String getUsername() {
+    return username;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
-  public String getEmail() {
-    return email;
+  public String getPassword() {
+    return this.password;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public String getFisrtName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return this.lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 }

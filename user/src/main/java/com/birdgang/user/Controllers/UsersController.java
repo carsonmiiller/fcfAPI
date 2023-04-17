@@ -44,11 +44,14 @@ public class UsersController {
         return userRepository.findAll();
     }
 
-    @PostMapping(path="/add/{name}/{email}")
-    public @ResponseBody String addNewUser(@PathVariable("name") String name, @PathVariable("email") String email){
+    @PostMapping(path="/add/{username}/{password}/{firstName}/{lastName}")
+    public @ResponseBody String addNewUser(@PathVariable("username") String username, @PathVariable("password") String password,
+                                            @PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName){
         User n = new User();
-        n.setName(name);
-        n.setEmail(email);
+        n.setUsername(username);
+        n.setPassword(password);
+        n.setFirstName(firstName);
+        n.setLastName(lastName);
         userRepository.save(n);
         return "Saved";
     }
