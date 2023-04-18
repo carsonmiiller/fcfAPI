@@ -23,7 +23,7 @@ public class BirdfeederController {
 
     @Autowired
     private BirdfeederRepository birdfeederRepository;
-
+    @Autowired
     private UserRepository userRepository;
 
     @GetMapping
@@ -48,10 +48,12 @@ public class BirdfeederController {
     }
 
     @PostMapping(path="/add/{fkUser}/{birdfeederSettings}")
-    public @ResponseBody String addNewUser(
-     @PathVariable("birdfeederSettings") String birdfeederSettings){
+    public @ResponseBody String addNewUser( @PathVariable("fkUser") Integer fkUser,
+                                            @PathVariable("birdfeederSettings") String birdfeederSettings){
+        User u = userRepository.findById(fkUser).orElse(new User());
         Birdfeeder n = new Birdfeeder();
         n.setBirdfeederSettings(birdfeederSettings);
+        n.setFKUser(u);
         birdfeederRepository.save(n);
         return "Saved Birdfeeder";
     }

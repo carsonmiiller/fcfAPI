@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.birdgang.user.birdfeeder.Models.Birdfeeder;
+import com.birdgang.user.birdfeeder.Models.BirdfeederRepository;
 import com.birdgang.user.stats.Models.Stats;
 import com.birdgang.user.stats.Models.StatsRepository;
 import com.birdgang.user.user.Models.User;
@@ -24,8 +26,10 @@ public class StatsController {
 
     @Autowired
     private StatsRepository statsRepository;
-
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private BirdfeederRepository birdfeederRepository;
 
     @GetMapping
     public @ResponseBody List<Stats> list() {
@@ -48,16 +52,24 @@ public class StatsController {
         return statsRepository.findAll();
     }
 
-    @PostMapping(path="/add/{birdsSeen}/{squirrelsSeen}/{birdsIdentified}/{birdsUnidentified}")
+    @PostMapping(path="/add/{birdsSeen}/{squirrelsSeen}/{birdsIdentified}/{birdsUnidentified}/{birdfeederID}/{userID}/")
     public @ResponseBody String addNewUser(@PathVariable("birdsSeen") int birdsSeen,
-    @PathVariable("birdsSeen") int squirrelsSeen,@PathVariable("birdsIdentified") int birdsIdentified,
-    @PathVariable("birdsUnidentified") int birdsUnidentified){
+                                            @PathVariable("birdsSeen") int squirrelsSeen,
+                                            @PathVariable("birdsIdentified") int birdsIdentified,
+                                            @PathVariable("birdsUnidentified") int birdsUnidentified,
+                                            @PathVariable("birdfeederID") int birdfeederID,
+                                            @PathVariable("userID") int userID){
+        User u = userRepository.findById(userID).orElse(new User());
+        Birdfeeder b = birdfeederRepository.findById(birdfeederID).orElse(new Birdfeeder());
         Stats n = new Stats();
         n.setBirdsSeen(birdsSeen);
         n.setSquirrelsSeen(squirrelsSeen);
         n.setBirdsIdentified(birdsIdentified);
         n.setBirdsUnidentified(birdsUnidentified);
-        return "Saved Birdfeeder";
+        n.setStatsUserID(u);
+        n.setStatsBirdfeederID(b);
+        statsRepository.save(n);
+        return "Saved Stats";
         
     }
 }

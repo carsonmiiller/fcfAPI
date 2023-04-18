@@ -1,21 +1,15 @@
 package com.birdgang.user.birds.Models;
 
-import java.sql.Date;
-import java.util.Optional;
-
+import com.birdgang.user.birdfeeder.Models.Birdfeeder;
 import com.birdgang.user.user.Models.User;
-import com.birdgang.user.user.Models.UserRepository;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.ForeignKey;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Birds {
@@ -23,30 +17,41 @@ public class Birds {
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer birdsID;
 
-  //@OneToOne(cascade = CascadeType.ALL)
-  //@JoinColumn(name = "birdfeederUserID", referencedColumnName = "userID")
-  //private Optional<User> fkUser;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "birdUserID", referencedColumnName = "userID")
+  private User user;
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "birdBirfeederID", referencedColumnName = "BirdfeederID")
+  private Birdfeeder birdfeeder;
 
   private String birdUnderstood;
   private String birdName;
   private String birdTimeSeenID;
-  private Integer birdUserID;
-  private Integer birdBirdfeederID;
 
-  public Integer getBirdBirdfeederID() {
-    return birdBirdfeederID;
+
+  public Birdfeeder getBirdBirdfeederID() {
+    return birdfeeder;
   }
 
-  public void setBirdBirdfeederID(Integer birdBirdfeederID) {
-    this.birdBirdfeederID = birdBirdfeederID;
+  public void setBirdBirdfeederID(Birdfeeder birdBirdfeederID) {
+    this.birdfeeder = birdBirdfeederID;
   }
 
-  public Integer getBirdUserID() {
-    return birdUserID;
+  public User getBirdUserID() {
+    return user;
   }
 
-  public void setBirdUserID(Integer birdUserID) {
-    this.birdUserID = birdUserID;
+  public void setBirdUserID(User birdUserID) {
+    this.user = birdUserID;
+  }
+
+  public Integer getBirdsID(){
+    return birdsID;
+  }
+
+  public void setBirdsID(Integer birdsID){
+    this.birdsID = birdsID;
   }
 
   public String getBirdUnderstood(){

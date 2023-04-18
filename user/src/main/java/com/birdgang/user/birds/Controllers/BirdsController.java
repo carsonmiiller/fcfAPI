@@ -1,6 +1,5 @@
 package com.birdgang.user.birds.Controllers;
 import java.util.List;
-import java.sql.Date;
 import java.util.ArrayList;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.birdgang.user.birdfeeder.Models.BirdfeederRepository;
 import com.birdgang.user.birdfeeder.Models.Birdfeeder;
@@ -21,17 +19,15 @@ import com.birdgang.user.birds.Models.BirdsRepository;
 import com.birdgang.user.user.Models.User;
 import com.birdgang.user.user.Models.UserRepository;
 
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-
 @RestController
 @RequestMapping("/api/v1/birds/")
 public class BirdsController {
 
     @Autowired
     private BirdsRepository birdsRepository;
-
+    @Autowired
     private BirdfeederRepository birdfeederRepository;
+    @Autowired
     private UserRepository userRepository;
 
     @GetMapping
@@ -62,10 +58,11 @@ public class BirdsController {
                                             @PathVariable("birdTimeSeenID") String birdTimeSeenID,
                                             @PathVariable("FKbirdUserID") Integer FKbirdUserID,
                                             @PathVariable("FKbirdBirdfeederID") Integer FKbirdBirdfeederID){
- 
+        User u = userRepository.findById(FKbirdUserID).orElse(new User());
+        Birdfeeder b = birdfeederRepository.findById(FKbirdBirdfeederID).orElse(new Birdfeeder());
         Birds n = new Birds();
-        n.setBirdBirdfeederID(FKbirdBirdfeederID);
-        n.setBirdUserID(FKbirdUserID);
+        n.setBirdBirdfeederID(b);
+        n.setBirdUserID(u);
         n.setBirdUnderstood(birdUnderstood);
         n.setBirdName(birdName);
         n.setBirdTimeSeenID(birdTimeSeenID);

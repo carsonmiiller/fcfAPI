@@ -1,12 +1,11 @@
 package com.birdgang.user.user.Models;
 
-import com.birdgang.user.birdfeeder.Models.Birdfeeder;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+//import jakarta.persistence.OneToOne;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class User {
