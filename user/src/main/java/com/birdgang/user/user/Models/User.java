@@ -19,8 +19,11 @@ public class User {
   private String firstName;
   private String lastName;
 
+  public User() {
+  }
+
   public Integer getUserID() {
-    return userID;
+    return this.userID;
   }
 
   public void setUserID(Integer userID) {
@@ -28,7 +31,7 @@ public class User {
   }
 
   public String getUsername() {
-    return username;
+    return this.username;
   }
 
   public void setUsername(String username) {
@@ -44,7 +47,7 @@ public class User {
   }
 
   public String getFisrtName() {
-    return firstName;
+    return this.firstName;
   }
 
   public void setFirstName(String firstName) {

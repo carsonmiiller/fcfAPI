@@ -23,11 +23,6 @@ public class UsersController {
     @Autowired
     private UserRepository userRepository;
 
-    ///////////////////////////////////////////////////////////////////////////////
-    //                                                                           //
-    //  WOULD RATHER PASS PARAMETERS IN THE BODY OF THE REQUEST THAN IN THE URL  //
-    //                                                                           //
-    ///////////////////////////////////////////////////////////////////////////////
     /**
      * This method is used to register a user
      * @param username
@@ -37,19 +32,21 @@ public class UsersController {
      * @return HttpStatus.OK if the user was successfully registered,
      *          HttpStatus.CONFLICT if the username already exists
      */
-    @PostMapping(path="/register")
-    public @ResponseStatus String register(@RequestBody String username, String password, String firstName, String lastName){
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        if(userRepository.findByUsername(username) != null)
-            return HttpStatus.CONFLICT.toString();
-        else {
-            userRepository.save(user);
-            return HttpStatus.OK.toString();
-        }   
+    @GetMapping(path="/register/{username}/{password}/{firstName}/{lastName}")
+    public @ResponseBody String register(@PathVariable("username") String username, @PathVariable("password") String password, @PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName){
+        Iterable<User> userRepo = getAllUsers();
+        for (User user : userRepo) {
+            if (user.getUsername().equals(username))
+                return "This username already exists!";
+        }
+
+        User newUser = new User();
+        newUser.setUsername(username);
+        newUser.setPassword(password);
+        newUser.setFirstName(firstName);
+        newUser.setLastName(lastName);
+        userRepository.save(newUser);
+        return "Successfully registered!";
     }
 
     /**
@@ -60,18 +57,18 @@ public class UsersController {
      *          HttpStatus.NOT_FOUND if the user does not exist,
      *          HttpStatus.UNAUTHORIZED if the password is incorrect
      */
-    @PostMapping(path="/login")
-    public @ResponseStatus String login(@RequestBody String username, String password){
-        // HOW DO I CHECK IF THE USER EXISTS IN THE DATABASE?
-        // HOW DO I CHECK IF THE PASSWORD IS CORRECT?
-        // IDEALLY, THERE WOULD BE A METHOD IN THE REPOSITORY THAT WOULD DO THIS FOR ME
-        // BUT I DON'T KNOW HOW TO DO THAT
-        if(userRepository.findByUsername(username) == null)
-            return HttpStatus.NOT_FOUND.toString();
-        else if(userRepository.findByUsername(username).getPassword() != password)
-            return HttpStatus.UNAUTHORIZED.toString();
-        else
-            return HttpStatus.OK.toString();
+    @GetMapping(path="/login/{username}/{password}")
+    public @ResponseBody String login(@PathVariable String username, @PathVariable String password){
+        Iterable<User> userRepo = getAllUsers();
+        for (User user : userRepo) {
+            if(user.getUsername().equals(username)){
+                if(user.getPassword().equals(password))
+                    return "Successfully logged in!";
+                else
+                    return "Incorrect password!";
+            }
+        }
+        return "User not found!";
     }
 
     @GetMapping("/{id}")
@@ -85,20 +82,7 @@ public class UsersController {
 
     @GetMapping
     public @ResponseBody Iterable<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    // DON'T LIKE PASSING THE PARAMETERS IN THE URL
-    @PostMapping(path="/add/{username}/{password}/{firstName}/{lastName}")
-    public @ResponseBody String addNewUser(@PathVariable("username") String username, @PathVariable("password") String password,
-                                            @PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName){
-        User n = new User();
-        n.setUsername(username);
-        n.setPassword(password);
-        n.setFirstName(firstName);
-        n.setLastName(lastName);
-        userRepository.save(n);
-        return "Saved";
+        return this.userRepository.findAll();
     }
 }
 
