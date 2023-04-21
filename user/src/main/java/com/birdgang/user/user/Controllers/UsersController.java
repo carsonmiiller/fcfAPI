@@ -63,12 +63,12 @@ public class UsersController {
         for (User user : userRepo) {
             if(user.getUsername().equals(username)){
                 if(user.getPassword().equals(password))
-                    return "Successfully logged in!";
+                    return "success";
                 else
-                    return "Incorrect password!";
+                    return "wrong_password";
             }
         }
-        return "User not found!";
+        return "userDNE";
     }
 
     @GetMapping("/{id}")
