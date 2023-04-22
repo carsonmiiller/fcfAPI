@@ -37,7 +37,7 @@ public class UsersController {
         Iterable<User> userRepo = getAllUsers();
         for (User user : userRepo) {
             if (user.getUsername().equals(username))
-                return "This username already exists!";
+                return "user_exists";
         }
 
         User newUser = new User();
@@ -46,7 +46,7 @@ public class UsersController {
         newUser.setFirstName(firstName);
         newUser.setLastName(lastName);
         userRepository.save(newUser);
-        return "Successfully registered!";
+        return "success";
     }
 
     /**
