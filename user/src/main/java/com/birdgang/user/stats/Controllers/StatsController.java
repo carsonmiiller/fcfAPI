@@ -54,7 +54,7 @@ public class StatsController {
 
     @PostMapping(path="/add/{birdsSeen}/{squirrelsSeen}/{birdsIdentified}/{birdsUnidentified}/{birdfeederID}/{userID}/")
     public @ResponseBody String addNewUser(@PathVariable("birdsSeen") int birdsSeen,
-                                            @PathVariable("birdsSeen") int squirrelsSeen,
+                                            @PathVariable("squirrelsSeen") int squirrelsSeen,
                                             @PathVariable("birdsIdentified") int birdsIdentified,
                                             @PathVariable("birdsUnidentified") int birdsUnidentified,
                                             @PathVariable("birdfeederID") int birdfeederID,
